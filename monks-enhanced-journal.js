@@ -22,6 +22,9 @@ import { APSJ } from "./apsjournal.js";
 import { EnhancedJournalSheet } from "./sheets/EnhancedJournalSheet.js";
 import { ProseMirrorPlugin } from "./classes/prosemirror.js";
 
+// Temporary hack by coffiarts to allow MEJ only for selective pagetypes
+const ALLOWED_PAGETYPES = ["shop", "quest"]
+
 export let debugEnabled = 0;
 
 export let debug = (...args) => {
@@ -2320,7 +2323,11 @@ export class MonksEnhancedJournal {
 	}
 
 	static async openJournalEntry(doc, options = {}) {
-		if (!MonksEnhancedJournal.isAllowedToUseEnhancedJournal())
+
+		// Temporary hack by coffiarts to allow MEJ only for selective pagetypes
+		let pagetype = doc.getFlag("monks-enhanced-journal", "pagetype")
+
+		if (!ALLOWED_PAGETYPES.includes(pagetype) && !MonksEnhancedJournal.isAllowedToUseEnhancedJournal())
 			return false;
 
 		if (game.modules.get('monks-common-display')?.active) {
