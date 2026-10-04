@@ -1,0 +1,10 @@
+@coffiarts — heads-up now that 14.01 is out and [#821](https://github.com/ironmonk108/monks-enhanced-journal/pull/821) is closed.
+>
+Your branch currently carries a merge of [#821](https://github.com/ironmonk108/monks-enhanced-journal/pull/821), and that merge now conflicts with main (14.01 was a squashed release, so none of #821's commits are ancestors of it). What I'd suggest for [#797](https://github.com/ironmonk108/monks-enhanced-journal/pull/797):
+>
+1. Rebase onto current main and drop the [Backlog fixes: ~65 bug fixes on top of the v14 migration (#820) #821](https://github.com/ironmonk108/monks-enhanced-journal/pull/821) merge commit, keeping only your own commits.
+2. Re-check the DSA5 currency changes against 14.01. It added an exported `currencyId()` helper (`helpers.js`) and uses it in `addCurrency`, so the purchase-deduction half of [[BUG] Shop System broken for dsa5: Doesn't convert currencies =breaking ANY purchases #795](https://github.com/ironmonk108/monks-enhanced-journal/issues/795) is already in. It does **not** use it in `defaultCurrency`, the fractional branch of `getPrice`, `canAfford`, `toDefaultCurrency`, or the `ShopSheet` price lookups, so those still resolve by placeholder id on dsa5 — that part of your fix is still needed. One thing to look at while you're in there: `onAcceptOffer` in 14.01 calls `currencyId(k)` with the string key from the offering form, which yields `undefined`; the guard never fires and the deduction targets `undefined`. Your version of that site (mapping id → name via the currency list) is the correct shape.
+3. The "Allow GM" setting is not in 14.01 either (only `allow-player` is registered, wrapped in a `canShowEnhancedJournal` getter). Since that's your work, I'll leave it out of the fixes I re-raise so we don't duplicate PRs — unless you'd rather I carry it, in which case say so and I'll credit you as before.
+>
+If it helps, I'm happy to review the rebased branch. My re-raised PRs will avoid the dsa5 currency sites and the Allow GM setting so they don't collide with yours.
+
