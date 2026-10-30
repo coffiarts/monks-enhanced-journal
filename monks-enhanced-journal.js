@@ -23,7 +23,7 @@ import { EnhancedJournalSheet } from "./sheets/EnhancedJournalSheet.js";
 import { ProseMirrorPlugin } from "./classes/prosemirror.js";
 
 // Temporary hack by coffiarts to allow MEJ only for selective pagetypes
-const ALLOWED_PAGETYPES = ["shop", "quest"]
+const ALLOWED_PAGETYPES = ["shop", "quest", "checklist"]
 
 export let debugEnabled = 0;
 
