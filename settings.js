@@ -141,6 +141,15 @@ export const registerSettings = function () {
 		type: Boolean,
 	});
 
+	game.settings.register(modulename, "allow-gm", {
+		name: i18n("MonksEnhancedJournal.allow-gm.name"),
+		hint: i18n("MonksEnhancedJournal.allow-gm.hint"),
+		scope: "world",
+		config: true,
+		default: true,
+		type: Boolean,
+	});
+
 	game.settings.register(modulename, "open-new-tab", {
 		name: i18n("MonksEnhancedJournal.open-new-tab.name"),
 		hint: i18n("MonksEnhancedJournal.open-new-tab.hint"),

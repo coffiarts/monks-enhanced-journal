@@ -200,7 +200,7 @@ export class MonksEnhancedJournal {
 	}
 
 	static get canShowEnhancedJournal() {
-		return game.user.isGM || setting("allow-player");
+		return game.user.isGM ? setting("allow-gm") : setting("allow-player");
 	}
 
 	static canDropOnActorSheet(sheet) {
